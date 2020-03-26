@@ -1,48 +1,31 @@
-# hexo-theme-butterfly
+# hexo-theme-fundodoo
 
-<a href="https://github.com/jerryc127/hexo-theme-butterfly/releases"><img alt="Version" src="https://img.shields.io/badge/release-2.2.0-blue"/></a>
-<a href="https://jerryc.me"><img alt="Author" src="https://img.shields.io/badge/author-JerryC-blur"/></a>
-<a href="https://hexo.io"><img alt="Hexo" src="https://img.shields.io/badge/hexo-4.0+-0e83c"/></a>
-<a href="https://nodejs.org/"><img alt="node.js" src="https://img.shields.io/badge/node.js-8.0+-blur"/></a>
+Demo:  https://www.fundodoo.com
 
-Demo:  https://demo.jerryc.me/
+Fundodoo:  https://about.fundodoo.com
 
-JerryC:  https://jerryc.me/
 
-Based on [hexo-theme-melody](https://github.com/Molunerfinn/hexo-theme-melody) theme.
+一款基於[hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)修改的主題
 
-## Installation
+## 安裝
 
-Stable branch:
+在你的博客根目錄裡
 
-```
-git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly
-```
-
-Dev branch:
+## 應用主題
+修改hexo配置文件`_config.yml`，把主題改為`Butterfly`
 
 ```
-git clone -b dev https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly
+theme: Butterfly
 ```
 
-## Configuration
+>如果你沒有pug以及stylus的渲染器，請下載安裝： npm install hexo-renderer-pug hexo-renderer-stylus --save or yarn add hexo-renderer-pug hexo-renderer-stylus
 
- Set theme in the hexo work folder's root config file `_config.yml`: 
+## 文檔
 
-> theme: Butterfly
+可查看[hexo-theme-butterfly docs](https://docs.jerryc.me) 和 [JerryC](https://jerryc.me/posts/21cfbf15)
 
- If you don't have pug & stylus renderer, try this: 
-
-> npm install hexo-renderer-pug hexo-renderer-stylus
-
-## Documentation
-
-Find in [hexo-theme-butterfly docs](https://docs.jerryc.me) and [JerryC](https://jerryc.me/posts/21cfbf15). it supports `zh-TW`
-
-## Screenshots
-
+## 截圖
 ![image](https://user-images.githubusercontent.com/16351105/58887365-1272f780-8718-11e9-9329-3292c6ba20d4.png)
-
-![](https://user-images.githubusercontent.com/16351105/58887457-3cc4b500-8718-11e9-9417-2bdea603c92e.png)
+![image](https://user-images.githubusercontent.com/16351105/58887457-3cc4b500-8718-11e9-9417-2bdea603c92e.png)
 
 ![](https://user-images.githubusercontent.com/16351105/69338594-7d03f980-0c9e-11ea-8b64-7f165e6508e2.png)
