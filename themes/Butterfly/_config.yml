@@ -5,28 +5,15 @@
 # xxx || icon:
 #   xxx || 連結 || icon
 menu:
-  首页: / || fa fa-home
-  开发 ||fa fa-archive:
-    - 多线程 || /music/ || fa fa-music
-    - JVM || /categories/开发/JVM/ || fa fa-film
-    - Netty || /categories/Develop/Netty/ || fa fa-film
-    - Vue || /movies/ || fa fa-film
-    - Ag-grid || /movies/ || fa fa-film
-  数据库 ||fa fa-tags:
-    - Mysql || /music/ || fa fa-music
-    - Redis || /movies/ || fa fa-film
-    - Mogodb || /movies/ || fa fa-film
-  系统架构 ||fa fa-folder-open:
-    - Spring Cloud || /music/ || fa fa-music
-    - Dubbo || /music/ || fa fa-music
-    - Kafka || /movies/ || fa fa-film
-  系统运维 ||fa fa-list:
-    - Docker || /music/ || fa fa-music
-    - K8s || /movies/ || fa fa-film
-  休闲娱乐 ||fa fa-list:
+  Home: / || fa fa-home
+  Archives: /archives/ || fa fa-archive
+  Tags: /tags/ || fa fa-tags
+  Categories: /categories/ || fa fa-folder-open
+  Link: /link/ || fa fa-link
+  About: /about/ || fa fa-heart
+  List||fa fa-list:
     - Music || /music/ || fa fa-music
     - Movie || /movies/ || fa fa-film
-  关于我: /about/ || fa fa-heart
 
 # Favicon
 # ---------------
@@ -65,8 +52,8 @@ copy:
 #   icon: link
 # ---------------
 social:
-  fa fa-github: https://github.com/fundodoo
-  fa fa-envelope: mailto:3313204840@qq.com
+  fa fa-github: https://github.com/jerryc127
+  fa fa-envelope: mailto:xxxxxxxx@gmail.com
   fa fa-rss: /atom.xml
 
 ####    search    ####
@@ -103,7 +90,7 @@ mathjax:
 # KaTeX
 # ---------------
 katex:
-  enable: true
+  enable: false
   # true 表示每一頁都加載katex.js
   # false 需要時加載，須在使用的Markdown Front-matter 加上 katex: true
   per_page: false
@@ -121,7 +108,7 @@ mermaid:
 # ---------------
 avatar:
   img: /img/avatar.png
-  effect: true # 頭像會一直轉圈
+  effect: false # 頭像會一直轉圈
 
 # the banner image of index
 index_img:
@@ -169,11 +156,11 @@ lodding_bg:
 error_404:
   enable: false
   subtitle: "Page Not Found"
-  background: url(https://i.loli.net/2019/09/09/5oDRkWVKctx2b6A.png)
+  background:
 
 post_meta:
   page:
-    date_type: both # created or updated or both 主頁文章日期是創建日或者更新日或都顯示
+    date_type: created # created or updated or both 主頁文章日期是創建日或者更新日或都顯示
     categories: true # true or false 主頁是否顯示分類
     tags: false # true or false 主頁是否顯示標籤
   post:
@@ -253,12 +240,12 @@ laibili:
   uid:
 
 gitalk:
-  enable: true
-  client_id: 539df2b5eadc368442b9
-  client_secret: 402b7e781e4f52e9cb22f9aec419626d47e6c59e
-  repo: fundodoo.github.io
-  owner: fundodoo
-  admin: fundodoo
+  enable: false
+  client_id:
+  client_secret:
+  repo:
+  owner:
+  admin:
   language: zh-CN # en , zh-CN , zh-TW
   perPage: 10 # Pagination size, with maximum 100.
   distractionFreeMode: false # Facebook-like distraction free mode.
@@ -304,9 +291,9 @@ footer_copyright:
   enable: true
 
 ICP:
-  enable: true
-  url: http://www.beian.miit.gov.cn/
-  text: 闽ICP备16001354号-2
+  enable: false
+  url:
+  text:
   icon: /img/icp.png
 
 ####   Analysis    ####
@@ -325,7 +312,7 @@ tencent_analytics:
 google_adsense:
   enable: false
   js: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
-  client: ca-pub-4349807219272870
+  client:
   enable_page_level_ads: true
 
 # 廣告插入位置
@@ -393,8 +380,8 @@ related_post:
 # 主頁設置
 # 默認top_img全屏，site_info在中間
 # 使用默認, 都無需填寫（建議默認）
-index_site_info_top: 98px # 主頁標題距離頂部距離  例如 300px/300em/300rem/10%
-index_top_img_height: 280px # 主頁top_img高度 例如 300px/300em/300rem  不能使用百分比
+index_site_info_top: # 主頁標題距離頂部距離  例如 300px/300em/300rem/10%
+index_top_img_height: # 主頁top_img高度 例如 300px/300em/300rem  不能使用百分比
 
 # category和tag頁的UI設置
 # index 值代表 UI將與首頁的UI一樣
@@ -426,7 +413,7 @@ canvas_ribbon:
 
 # 動態彩帶
 canvas_ribbon_piao:
-  enable: true
+  enable: false
   mobile: false # false 手機端不顯示 true 手機端顯示
 
 # canvas_nest
@@ -441,7 +428,7 @@ canvas_nest:
 
 # 打字效果
 activate_power_mode:
-  enable: true
+  enable: false
   colorful: true # 冒光特效
   shake: true # 抖動特效
 
@@ -453,26 +440,14 @@ fireworks:
 
 # 點擊出現愛心
 click_heart:
-  enable: true
+  enable: false
 
 # 點擊出現文字，文字可自行修改
 ClickShowText:
-  enable: true
+  enable: false
   text:
     - 本人
     - 超帥
-    - 富強
-    - 民主
-    - 文明
-    - 和谐
-    - 自由
-    - 平等
-    - 公正
-    - 法治
-    - 爱国
-    - 敬业
-    - 诚信
-    - 友善
   fontSize: 15px
 
 # 網站顯示模式
@@ -504,23 +479,13 @@ hr:
   icon: '\f21c' #fontawesome上圖標的Unicode
   icon-top: -20px
 
-# card_Author info
-cardAuthor:
-  enable: true
-  description: 格物 致知
-
-# 主頁title_icon
-title:
-  enable: false
-  icon: /img/blogIcon140*32.png
-
 # 主頁subtitle
 subtitle:
   enable: true
   # 打字效果
   effect: true
   # 循環或者只打字一次
-  loop: true
+  loop: false
   # source調用第三方服務
   # source: false 關閉調用
   # source: 1  調用金山詞霸的每日一句（簡體）
@@ -528,14 +493,12 @@ subtitle:
   # source: 3  調用一句網（簡體） http://yijuzhan.com/
   # source: 4  調用今日詩詞（簡體） https://www.jinrishici.com/
   # subtitle 會先顯示 source , 再顯示 sub 的內容
-  source: 1
+  source: false
   # (如果有英文逗號' , '，請使用轉義字符 &#44;)
   # 如果關閉打字效果，subtitle只會顯示sub的第一行文字
   sub:
-    - Never put off till tomorrow what you can do today
     - 今日事&#44;今日畢
-    - One thing to the extreme&#44; there will be everything!
-    - 一件事做到极致&#44;该有的都会有！
+    - Never put off till tomorrow what you can do today
 
 # fontawesome圖標
 # 默認使用的是 fontawesome v4版本的圖標
@@ -552,7 +515,7 @@ aside:
   card_author: true
   card_announcement: true
   card_recent_post: true
-  card_categories: false
+  card_categories: true
   card_tags: true
   card_archives: true
   card_webinfo: true
@@ -573,13 +536,13 @@ busuanzi:
 # 也可以寫成 年/月/日 時間
 runtimeshow:
   enable: true
-  start_date: 2/18/2020 18:58:18
+  start_date: 6/7/2018 00:00:00
 
 ####   右下角按鈕  ####
 #----------------------------------------------
 # 簡繁轉換
 translate:
-  enable: false
+  enable: true
   # 默認按鈕顯示文字
   default: 繁
   #網站默認語言，1: 繁體中文, 2: 簡體中文
@@ -628,8 +591,8 @@ fancybox:
 # position 彈窗位置
 # 可選 top-left / top-center / top-right / bottom-left / bottom-center / bottom-right
 snackbar:
-  enable: true
-  position: top-right
+  enable: false
+  position: bottom-left
   bg_light: "#49b1f5" #light mode時彈窗背景
   bg_dark: "#2d3035" #dark mode時彈窗背景
 
