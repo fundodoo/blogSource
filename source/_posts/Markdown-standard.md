@@ -7,17 +7,11 @@ categories:
 - Doc
 top: false
 date: 2020-03-27 15:48:35
-keywords:
-description:
+keywords: Markdown，案例，demo，Markdown Demo
+description: Markdown基础语法介绍与案例展示。。。
 top_img:
 comments:
 cover:
-toc:
-toc_number:
-copyright:
-mathjax:
-katex:
-hide:
 ---
 
 # 语法指南
