@@ -7,22 +7,23 @@
 menu:
   首页: / || fa fa-home
   开发 ||fa fa-archive:
-    - 多线程 || /music/ || fa fa-music
-    - JVM || /categories/开发/JVM/ || fa fa-film
-    - Netty || /categories/Develop/Netty/ || fa fa-film
-    - Vue || /movies/ || fa fa-film
-    - Ag-grid || /movies/ || fa fa-film
+    - 多线程 || /categories/multi-thread/ || fa fa-music
+    - JVM || /categories/JVM/ || fa fa-film
+    - Netty || /categories/Netty/ || fa fa-film
+    - Vue || /categories/Vue/ || fa fa-film
+    - Ag-grid || /categories/Ag-grid/ || fa fa-film
   数据库 ||fa fa-tags:
-    - Mysql || /music/ || fa fa-music
-    - Redis || /movies/ || fa fa-film
-    - Mogodb || /movies/ || fa fa-film
+    - Mysql || /categories/Mysql/ || fa fa-music
+    - Redis || /categories/Redis/ || fa fa-film
+    - MongoDB || /categories/MongoDB/ || fa fa-film
   系统架构 ||fa fa-folder-open:
-    - Spring Cloud || /music/ || fa fa-music
-    - Dubbo || /music/ || fa fa-music
-    - Kafka || /movies/ || fa fa-film
+    - Cloud || /categories/Cloud/ || fa fa-music
+    - Dubbo || /categories/Dubbo/ || fa fa-music
+    - Kafka || /categories/Kafka/ || fa fa-film
   系统运维 ||fa fa-list:
-    - Docker || /music/ || fa fa-music
-    - K8s || /movies/ || fa fa-film
+    - Docker || /categories/Docker/ || fa fa-music
+    - K8s || /categories/K8s/ || fa fa-film
+    - Doc || /categories/Doc/ || fa fa-film
   休闲娱乐 ||fa fa-list:
     - Music || /music/ || fa fa-music
     - Movie || /movies/ || fa fa-film
@@ -323,7 +324,7 @@ tencent_analytics:
 # ---------------
 # Google Adsense
 google_adsense:
-  enable: false
+  enable: true
   js: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
   client: ca-pub-4349807219272870
   enable_page_level_ads: true

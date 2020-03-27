@@ -101,7 +101,15 @@ theme: Butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+#deploy:
+  #type: git
+  #repo: git@github.com:fundodoo/fundodoo.github.io.git
+  #repo: git@e.coding.net:fundodoo/fundodoo.git
+  #branch: master
 deploy:
-  type: git
-  repo: git@github.com:fundodoo/fundodoo.github.io.git
-  branch: master
+  - type: git
+    repo: git@github.com:fundodoo/fundodoo.github.io.git
+    branch: master
+  - type: git
+    repo: git@e.coding.net:fundodoo/fundodoo.git
+    branch: master
