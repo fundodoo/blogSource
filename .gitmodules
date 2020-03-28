@@ -1,0 +1,3 @@
+[submodule "themes/Butterfly"]
+	path = themes/Butterfly
+	url = git@github.com:fundodoo/hexo-theme-butterfly.git
