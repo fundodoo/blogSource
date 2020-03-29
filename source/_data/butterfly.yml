@@ -6,7 +6,8 @@
 #   xxx || 連結 || icon
 menu:
   首页: / || fa fa-home
-  开发 ||fa fa-archive:
+  开发 ||fa fa-archive: 
+    - Java || /categories/Java/ || fa fa-music
     - 多线程 || /categories/multi-thread/ || fa fa-music
     - JVM || /categories/JVM/ || fa fa-film
     - Netty || /categories/Netty/ || fa fa-film
@@ -47,19 +48,23 @@ favicon: /img/favicon.ico
 
 # Highlight theme
 # ---------------
-highlight_theme: light # default / darker / pale night / light / ocean
+highlight_theme: ocean # default / darker / pale night / light / ocean
 highlight_copy: true #代碼複製按鈕
 highlight_lang: true #代碼語言顯示
 highlight_shrink: false # true 全部代碼框不展開，需點擊 '>' 打開 / false 代碼框展開，有'>'點擊按鈕 | none 代碼框展開，不顯示 '>' 按鈕
 
 code_word_wrap: false
 
+# figcaption
+# 圖片描述文字
+photofigcaption: false
+
 # copy setting
 # 是否禁止複製（如果禁止，highlight_copy的功能將無效)
 # copyright 複製的內容後面加上版權信息
 copy:
   enable: true # true 開啟 / false 禁止
-  copyright: false
+  copyright: true
 
 # social settings
 # formal:
@@ -483,8 +488,8 @@ display_mode: light
 
 # 美化頁面顯示
 beautify:
-  enable: false
-  title-prefix-icon: '\f0c1'
+  enable: true
+  title-prefix-icon: '\f074'
   title-prefix-icon-color: "#F47466"
 
 # 全局字體
@@ -607,7 +612,7 @@ darkmode:
   # autoChangeMode: 1  跟隨系統而變化，不支持的瀏覽器/系統將按照時間晚上6點到早上6點之間切換為 dark mode
   # autoChangeMode: 2  只按照時間晚上6點到早上6點之間切換為 dark mode
   # autoChangeMode: false 取消自動切換
-  autoChangeMode: 1
+  autoChangeMode: 2
 
 ####    other     ####
 #------------------------------------------------
