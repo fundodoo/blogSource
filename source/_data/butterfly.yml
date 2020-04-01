@@ -24,6 +24,7 @@ menu:
   系统运维 ||fa fa-list:
     - Docker || /categories/Docker/ || fa fa-music
     - K8s || /categories/K8s/ || fa fa-film
+    - Zookeeper || /categories/Zookeeper/ || fa fa-film
     - Doc || /categories/Doc/ || fa fa-film
   休闲娱乐 ||fa fa-list:
     - Music || /music/ || fa fa-music
