@@ -29,7 +29,7 @@ menu:
   休闲娱乐 ||fa fa-list:
     - Music || /music/ || fa fa-music
     - Movie || /movies/ || fa fa-film
-  关于我: /about/ || fa fa-heart
+  关于我: https://about.fundodoo.com || fa fa-heart
 
 # Favicon
 # ---------------
