@@ -102,8 +102,58 @@ description:
 5. `ZKClient`根据通知从`WatchManager`中找到相应的`watcher`对象
 6. `ZKClient`的`watcher`对象*执行*相应**回调** 
 
+![watcher](/images/watcher.png)
+
 ### watcher 事件
 
+<table>
+  <tr>
+    <th>客户端所处状态</th>
+    <th>事件类型(常量值)</th>
+    <th>触发条件</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td rowspan="5">SyncConnected</td>
+    <td>None(-1)</td>
+    <td>客户端与服务器成功建立会话</td>
+    <td rowspan="5">此时客户端和服务器处于连接状态</td>
+  </tr>
+  <tr>
+    <td>NodeCreated(1)</td>
+    <td>Watcher监听的对应数据节点被创建</td>
+  </tr>
+  <tr>
+    <td>NodeDeleted(2)</td>
+    <td style="color:red;">Watcher监听的对应数据节点被删除</td>
+  </tr>
+  <tr>
+    <td>NodeDataChanged(3)</td>
+    <td style="color:red;">Watcher监听的对应数据节点的数据内容发生变化</td>
+  </tr>
+  <tr>
+    <td>NodeChildrenChanged(4)</td>
+    <td style="color:red;">Watcher监听的节点的子节点列表发生变化</td>
+  </tr>
+  <tr>
+    <td>Disconnected(0)</td>
+    <td>None(-1)</td>
+    <td>客户端与zk服务器断开连接</td>
+    <td>此时客户端与服务器处于连接断开状态</td>
+  </tr>
+  <tr>
+    <td>Expired(-112)</td>
+    <td>None(-1)</td>
+    <td>会话失效</td>
+    <td>此时客户端会话失效，通常会收到SessionExpiredException异常</td>
+  </tr>
+  <tr>
+    <td>AuthFailed</td>
+    <td>None(-1)</td>
+    <td>使用错误的scheme进行权限检查</td>
+    <td>通常会收到AuthFailedException异常</td>
+  </tr>
+</table>
 
 ### watcher 特性
 -  **一次性**：一旦一个`watcher`被触发，zk就会将其从*客户端*的`WatcherManager`中*删除*，*服务端*中也会**删除**该`watcher`。`zk`的`watcher`机制**不适合**监听变化*非常频繁*的场景。

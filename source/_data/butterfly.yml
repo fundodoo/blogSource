@@ -5,31 +5,31 @@
 # xxx || icon:
 #   xxx || 連結 || icon
 menu:
-  首页: / || fa fa-home
-  开发 ||fa fa-archive: 
-    - Java || /categories/Java/ || fa fa-music
-    - 多线程 || /categories/multi-thread/ || fa fa-music
-    - JVM || /categories/JVM/ || fa fa-film
-    - Netty || /categories/Netty/ || fa fa-film
-    - Vue || /categories/Vue/ || fa fa-film
-    - Ag-grid || /categories/Ag-grid/ || fa fa-film
-  数据库 ||fa fa-tags:
-    - Mysql || /categories/Mysql/ || fa fa-music
-    - Redis || /categories/Redis/ || fa fa-film
-    - MongoDB || /categories/MongoDB/ || fa fa-film
-  系统架构 ||fa fa-folder-open:
-    - Cloud || /categories/Cloud/ || fa fa-music
-    - Dubbo || /categories/Dubbo/ || fa fa-music
-    - Kafka || /categories/Kafka/ || fa fa-film
-  系统运维 ||fa fa-list:
-    - Docker || /categories/Docker/ || fa fa-music
-    - K8s || /categories/K8s/ || fa fa-film
-    - Zookeeper || /categories/Zookeeper/ || fa fa-film
-    - Doc || /categories/Doc/ || fa fa-film
-  休闲娱乐 ||fa fa-list:
-    - Music || /music/ || fa fa-music
-    - Movie || /movies/ || fa fa-film
-  关于我: https://about.fundodoo.com || fa fa-heart
+  首页: / || fas fa-home
+  开发 ||fas fa-plug: 
+    - Java || /categories/Java/ || fas fa-mug-hot
+    - 多线程 || /categories/multi-thread/ || fas fa-viruses
+    - JVM || /categories/JVM/ || fab fa-java
+    - Netty || /categories/Netty/ || fas fa-network-wired
+    - Vue || /categories/Vue/ || fab fa-vuejs
+    - Ag-grid || /categories/Ag-grid/ || fas fa-pager
+  数据库 ||fas fa-database:
+    - Mysql || /categories/Mysql/ || fas fa-table
+    - Redis || /categories/Redis/ || fab fa-cloudscale
+    - MongoDB || /categories/MongoDB/ || fas fa-server
+  系统架构 ||fas fa-cloud-sun:
+    - Cloud || /categories/Cloud/ || fas fa-cloud-sun-rain
+    - Dubbo || /categories/Dubbo/ || fas fa-soap
+    - Kafka || /categories/Kafka/ || fas fa-kaaba
+    - Zookeeper || /categories/Zookeeper/ || fas fa-balance-scale
+  系统运维 ||fas fa-plus-square:
+    - Docker || /categories/Docker/ || fab fa-docker
+    - K8s || /categories/K8s/ || far fa-sun
+    - Doc || /categories/Doc/ || far fa-bookmark
+  休闲娱乐 ||fas fa-play-circle:
+    - Music || /music/ || fas fa-music
+    - Movie || /movies/ || fas fa-video
+  关于我: https://about.fundodoo.com || fas fa-heart
 
 # Favicon
 # ---------------
@@ -72,9 +72,9 @@ copy:
 #   icon: link
 # ---------------
 social:
-  fa fa-github: https://github.com/fundodoo
-  fa fa-envelope: mailto:3313204840@qq.com
-  fa fa-rss: /atom.xml
+  fab fa-github: https://github.com/fundodoo
+  far fa-envelope: mailto:3313204840@qq.com
+  fas fa-rss-square: /atom.xml
 
 ####    search    ####
 # Algolia search
@@ -547,7 +547,7 @@ subtitle:
 # fontawesome圖標
 # 默認使用的是 fontawesome v4版本的圖標
 fontawesome_v5:
-  enable: false
+  enable: true
 
 ####    側邊欄    ####
 #-------------------------------------
