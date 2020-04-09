@@ -98,3 +98,54 @@ description:
   - `shutdown +5 "System will shutdown after 5 minutes"`: 指定5分钟后关机，同时送出警告给登陆的用户
 - `reboot`: 重启机器
   - `reboot -w`: 模拟重启（只有记录并不会真的重启机器）
+
+## scp命令详解
+> scp是secure copy的缩写，scp是linux系统下基于ssh登陆进行**安全**的远程文件拷贝命令。linux的scp命令可以在linux服务器之间复制*文件和目录*。
+
+### 语法（命令格式）
+- scp [参数] [原路径] [目标路径]
+
+### 参数说明
+- `-1`: 强制scp命令使用**ssh1**协议
+- `-2`: 强制scp命令使用**ssh2**协议
+- `-4`: 强制scp命令只使用**IPV4**寻址
+- `-6`: 强制scp命令只使用**IPV6**寻址
+- `-B`: 使用**批处理**模式（传输过程中不询问传输口令或短语）
+- `-C`: 允许**压缩**（将-C标志传递给ssh，从而打开压缩功能）
+- `-p`: **保留**原文件的*修改时间*、*访问时间*和*访问权限*
+- `-q`: 不显示传输进度条
+- `-r`: **递归**复制整个目录
+- `-v`: 详细方式显示输出。scp和ssh(1)会显示整个过程的调试信息，这些信息用于调试连接、验证和配置问题
+- `-c cipher`: 以**cipher**将数据传输进行**加密**，这个选项将直接传递给ssh
+- `-F ssh_config`: 指定一个替代ssh配置文件，此参数直接传递给ssh
+- `-i identity_file`: 从指定文件中读取传输时使用的密钥文件，此参数直接传递给ssh
+- `-l limit`: **限定**用户所能使用的**带宽**，以**Kbit/s**为单位
+- `-o ssh_option`: 
+- `-P port`: 注意P是**大写**，port是指定数据传输用到的端口号
+- `-S program`: 指定加密传输时所使用的程序，此程序必须能够理解ssh(1)的选项
+
+### 使用实例
+
+- 实例1: 从远程服务器复制文件到本地目录
+  ```sh
+  // 从192.168.10.18机器上的/opt/soft/的目录中下载nginx-0.5.38.tar.gz文件到本地/opt/soft/目录中
+  scp root@192.168.10.18:/opt/soft/nginx-0.5.38.tar.gz /opt/soft/
+  ```
+
+- 实例2: 从远程服务器复制文件夹及其里面的文件到本地目录
+  ```sh
+  // 从192.168.10.18机器上的/opt/soft/的目录中下载mongodb目录到本地/opt/soft/目录中
+  scp -r root@192.168.10.18:/opt/soft/mongodb /opt/soft/
+  ```
+
+- 实例3: 上传本地文件到远程机器的指定目录
+  ```sh
+  // 复制本地/opt/soft/目录下的nginx-0.5.38.tar.gz到远程服务器192.168.10.18的/opt/soft/scptest目录
+  scp /opt/soft/nginx-0.5.38.tar.gz root@192.168.10.18:/opt/soft/scptest
+  ```
+
+- 实例4: 上传本地目录到远程机器的指定目录
+  ```sh
+  // 复制本地/opt/soft/mongodb目录到远程服务器192.168.10.18的/opt/soft/scptest目录
+  scp -r /opt/soft/mongodb root@192.168.10.18:/opt/soft/scptest
+  ```
