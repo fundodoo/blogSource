@@ -131,21 +131,21 @@ avatar:
   effect: true # 頭像會一直轉圈
 
 # the banner image of index
-index_img: /img/top3.webp
+index_img: /img/top3.jpeg
 
 # if the banner of page not setting,it will show the top_img
-default_top_img: /img/top5.webp
+default_top_img: /img/top5.jpeg
 
 # the banner image of archive page
 archive_img: /img/top3.jpg
 
 # the banner image of tag page
 # tag page, look like https://xxxxxxxxx.com/tags/butterfly
-tag_img: /img/top3.webp
+tag_img: /img/top3.jpeg
 
 # the banner image of category page
 # category page, look like https://xxxxxxxxx.com/categories/butterfly
-category_img: /img/top4.webp
+category_img: /img/top4.jpeg
 
 # 如果你有使用hexo-douban，可配置這個
 # douban:
@@ -164,10 +164,10 @@ cover:
   position: both
   # 當沒有設置cover時，默認的封面顯示
   default_cover:
-    - /img/post.webp
-    - /img/top3.webp
-    - /img/top4.webp
-    - /img/top5.webp
+    - /img/post.jpeg
+    - /img/top3.jpeg
+    - /img/top4.jpeg
+    - /img/top5.jpeg
 
 # if the photo link cannot connect,it will show that
 lodding_bg:

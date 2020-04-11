@@ -16,7 +16,7 @@ email: 3313204840@qq.com
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://blog.fundodoo.com
+url: https://www.fundodoo.com
 root: /
 permalink: :lang/:year/:month/:day/:minute.html
 permalink_defaults:
@@ -98,6 +98,21 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: Butterfly
+
+# Minify images with imagemin.
+# enable - Enable the plugin. Defaults to true.
+# interlaced - Interlace gif for progressive rendering. Defaults to false.
+# multipass - Optimize svg multiple times until it’s fully optimized. Defaults to false.
+# optimizationLevel - Select an optimization level between 0 and 7. Defaults to 2.
+# pngquant - Enable imagemin-pngquant plugin. Defaults to false.
+# progressive - Lossless conversion to progressive. Defaults to false.
+imagemin:
+  enable: true
+  interlaced: true
+  multipass: false
+  optimizationLevel: 3
+  pngquant: true
+  progressive: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
