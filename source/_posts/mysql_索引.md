@@ -1,5 +1,5 @@
 ---
-title: Mysql 索引
+title: Mysql 索引基础
 categories:
   - Mysql
 top: false
