@@ -7,8 +7,9 @@ top_img:
   - /images/top4.jpeg
 date: 2020-04-23 13:26:17
 tags:
-keywords:
-description:
+- Netty
+keywords: TCP 拆包粘包,netty实战
+description: TCP 拆包粘包,netty实战
 comments:
 cover: /images/netty_tcp_packing.jpg
 ---
@@ -27,11 +28,11 @@ cover: /images/netty_tcp_packing.jpg
 
 ## 发送方拆包、粘包
 
-### 需求
-> 客户端作为发送方，向服务器发送两个大的`ByteBuf`数据包，这两个数据包会被拆分为若干个`Frame`进行发送。这个过程会发送拆包和粘包
+### 需求--案例1
+> 客户端作为发送方，向服务器发送<span style="color:red;">两个大的`ByteBuf`数据包</span>，这两个数据包会被拆分为若干个`Frame`进行发送。这个过程会发送拆包和粘包
 > 服务端作为接收方，直接将接收到的`Frame`解码为String后进行显示，不对这个`Frame`进行粘包和拆包
 
-### 定义客户端
+#### 定义客户端
 
 > 由于客户端仅发送数据，不接收服务端数据，所以这里仅需添加*String的编码器*，用于将字符串编码为`ByteBuf`，用于在TCP上进行传输。
 
@@ -124,7 +125,7 @@ public class FundodooClientUnpackingHanler extends ChannelInboundHandlerAdapter 
 
 ```
  
- ### 定义服务端
+ #### 定义服务端
 
  > 由于服务端仅接收客户端的数据，不发送数据，所以这里仅添加String解码器，用于将ByteBuf解码为String
 
@@ -211,6 +212,117 @@ public class FundodooServerPrintHandler extends ChannelInboundHandlerAdapter {
 
  ```
 
- ### 运行结果
+ #### 运行结果
  > **Server 接收到的第【1】个数据包**：<span style="color:red">Netty is a NIO client server</span> framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server.<br /><br />'Quick and easy' doesn't mean that a resulting application will suffer from a maintainability or a performance issue. Netty has been designed carefully with the experiences earned from the implementation of a lot of protocols such as FTP, SMTP, HTTP, and various binary and text-based legacy protocols. As a result, Netty has succeeded to find a way to achieve ease of development, performance, stability, and flexibility without a compromise.<span style="color:red">Netty is a NIO client server</span> framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server.<br /><br />'Quick and easy' doesn't mean that a resulting application will suffer from a maintainability or a performanc
 **Server 接收到的第【2】个数据包**：e issue. Netty has been designed carefully with the experiences earned from the implementation of a lot of protocols such as FTP, SMTP, HTTP, and various binary and text-based legacy protocols. As a result, Netty has succeeded to find a way to achieve ease of development, performance, stability, and flexibility without a compromise.
+
+
+### 需求--案例2
+> 客户端作为发送方，向服务端发送<span style="color:red;">100个小的ByteBuf数据包</span>，这100个数据包会被合并为若干个Frame进行发送。**这个过程会发生粘包与拆包**。
+> 服务端作为接收方，直接将接收到的`Frame`解码为String后进行显示，**不**对这些`Frame`进行**粘包与拆包**。
+
+#### 客户端定义
+
+> 启动类和案例1一样，不需要更改，只需要修改客户端处理器类`FundodooClientUnpackingHanler`的`channelActive(...)`方法，修改如下
+
+```Java
+@Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        ctx.writeAndFlush(message);
+//        ctx.writeAndFlush(message);
+        for (int i=0; i<100; i++){
+            ctx.writeAndFlush("Hello Netty");
+        }
+    }
+```
+
+> 或者去除启动类的String编码器,然后在channelActive()方法里手动编码
+
+```Java
+bootstrap.group(eventLoopGroup)
+                    .channel(NioSocketChannel.class)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel ch) throws Exception {
+                            final ChannelPipeline pipeline = ch.pipeline();
+//                            pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8))// 去除String编码器，在自定义处理器里进行手工编码
+                            pipeline.addLast(new FundodooClientUnpackingHanler());
+                        }
+                    });
+```
+
+```Java
+@Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        ctx.writeAndFlush(message);
+//        ctx.writeAndFlush(message);
+        byte[] msgBytes = "Hello Netty".getBytes();
+        ByteBuf buf = null;
+        for (int i=0; i<100; i++){
+            buf = Unpooled.buffer(msgBytes.length);
+            buf.writeBytes(msgBytes);
+            ctx.writeAndFlush(buf);
+        }
+    }
+```
+
+#### 定义服务端
+> 和案例1一样
+
+#### 运行结果
+> Server 接收到的第【1】个数据包：Hello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello Netty
+Server 接收到的第【2】个数据包：Hello NettyHello Netty
+Server 接收到的第【3】个数据包：Hello NettyHello Netty
+Server 接收到的第【4】个数据包：Hello NettyHello Netty
+Server 接收到的第【5】个数据包：Hello Netty
+Server 接收到的第【6】个数据包：Hello Netty
+Server 接收到的第【7】个数据包：Hello Netty
+Server 接收到的第【8】个数据包：Hello Netty
+Server 接收到的第【9】个数据包：Hello Netty
+Server 接收到的第【10】个数据包：Hello Netty
+Server 接收到的第【11】个数据包：Hello Netty
+Server 接收到的第【12】个数据包：Hello Netty
+Server 接收到的第【13】个数据包：Hello Netty
+Server 接收到的第【14】个数据包：Hello Netty
+Server 接收到的第【15】个数据包：Hello Netty
+Server 接收到的第【16】个数据包：Hello Netty
+Server 接收到的第【17】个数据包：Hello Netty
+Server 接收到的第【18】个数据包：Hello Netty
+Server 接收到的第【19】个数据包：Hello Netty
+Server 接收到的第【20】个数据包：Hello Netty
+Server 接收到的第【21】个数据包：Hello Netty
+Server 接收到的第【22】个数据包：Hello Netty
+Server 接收到的第【23】个数据包：Hello Netty
+Server 接收到的第【24】个数据包：Hello Netty
+Server 接收到的第【25】个数据包：Hello Netty
+Server 接收到的第【26】个数据包：Hello Netty
+Server 接收到的第【27】个数据包：Hello Netty
+Server 接收到的第【28】个数据包：Hello NettyHello Netty
+Server 接收到的第【29】个数据包：Hello NettyHello Netty
+Server 接收到的第【30】个数据包：Hello Netty
+Server 接收到的第【31】个数据包：Hello Netty
+Server 接收到的第【32】个数据包：Hello NettyHello Netty
+Server 接收到的第【33】个数据包：Hello Netty
+Server 接收到的第【34】个数据包：Hello Netty
+Server 接收到的第【35】个数据包：Hello Netty
+Server 接收到的第【36】个数据包：Hello NettyHello Netty
+Server 接收到的第【37】个数据包：Hello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello Netty
+Server 接收到的第【38】个数据包：Hello Netty
+Server 接收到的第【39】个数据包：Hello Netty
+Server 接收到的第【40】个数据包：Hello Netty
+Server 接收到的第【41】个数据包：Hello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello NettyHello Netty
+Server 接收到的第【42】个数据包：Hello NettyHello NettyHello Netty
+Server 接收到的第【43】个数据包：Hello Netty
+Server 接收到的第【44】个数据包：Hello Netty
+Server 接收到的第【45】个数据包：Hello Netty
+Server 接收到的第【46】个数据包：Hello Netty
+Server 接收到的第【47】个数据包：Hello NettyHello NettyHello NettyHello Netty
+Server 接收到的第【48】个数据包：Hello NettyHello NettyHello Netty
+Server 接收到的第【49】个数据包：Hello Netty
+Server 接收到的第【50】个数据包：Hello Netty
+Server 接收到的第【51】个数据包：Hello Netty
+Server 接收到的第【52】个数据包：Hello Netty
+Server 接收到的第【53】个数据包：Hello Netty
+
+### 服务端数据处理
+> 见后续文章(**Netty_Netty 帧(Frame)解码器**)
