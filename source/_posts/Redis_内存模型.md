@@ -271,7 +271,105 @@ struct sdshdr{
 - 列表中**所有**字符串对象都**不足**<span style="color:red;">64</span>字节
 
 ### 哈希
+> 哈希(一种数据结构)，不仅是Redis对外提供的5种对象类型的一种(字符串、列表、集合、有序集合、哈希)，也是Redis作为Key-Value数据库所使用的数据结构。为了说明的方便，后面当使用"**内层的哈希**"时，代表的是Redis对外提供的5种对象类型的一种；使用"**外层的哈希**"代指Redis作为Key-Value数据库所使用的数据结构
+
+#### 内部编码
+> **内层的哈希**使用的内部编码可以是压缩列表(ziplist)和哈希表(hashtable)两种；Redis**外层的哈希**则只使用了hashtable。
+
+##### hashtable
+> 一个hashtable由1个`dict`结构、2个`dictht`结构、1个`dictEntry`指针数组(称为bucket)和多个`dictEntry`结构组成.如下图(hashtable没有进行refresh)
+
+![redis_hashtable](/images/redis_hashtable.jpeg)
+
+> `dictEntry`结构 （在64位系统中，一个`dictEntry`对象占<span style="color:red;">24</span>字节(key/val/next各占8字节)）
+
+```C
+typedef struct dictEntry{
+  void *key;
+  union{
+    void *val;
+    uint64_tu64;
+    int64_ts64;
+  }v;
+  struct dictEntry *next;
+}dictEntry;
+```
+
+- **key**：键值对中的键
+- **val**：键值对中的值，使用union(即共用体)实现，存储的内容即可能是一个指向值的指针，也可能是64位整形，或无符号64位整形
+- **next**：指向下一个dictEntry，用于解决哈希冲突问题
+
+> `bucket` 是一个数组，数组的每个元素都指向`dictentry`结构的指针。Redis中的bucket数组的大小计算规则如下：**大于** *dictEntry的数量*的**最小**的<span style="color:red;">2^n</span>;
+> eg：如果有1000个dictEntry，那么bucket大小为1024；如果有1500个dictEntry，则bucket大小为2048
+
+> dictht结构
+
+```C
+typedef struct dictht{
+  dictEntry **table;
+  unsigned long size;
+  unsigned long sizemask;
+  unsigned long used;
+}dictht;
+```
+
+- **table**：指针，指向bucket
+- **size**：记录了哈希表的大小，即bucket的大小
+- **used**：记录了已使用的dictEntry的数量
+- **sizemask**：值总是为**size-1**，这个属性和哈希值一起决定一个键在table中的存储位置
+
+> `dict`。一般情况下通过使用dictht和dictEntry结构，便可以实现普通哈希表的功能，但是Redis的实现中，在dictht结构的上层，还有一个dict结构
+
+```C
+typedef struct dict{
+  dictType *type;
+  void *privdata;
+  dictht ht[2];
+  int trehashidx;
+} dict;
+```
+
+- **type、privdata**：为了适应不同类型的键值对，用于创建多态字典
+- **ht、trehashidx**：用于rehash。即当哈希表需要扩展或者收缩时使用。ht是一个包含两个项的数组，每项都指向一个dictht结构，这也是Redis的哈希会有1个dict、2个dictht结构的原因。通常情况下，所有的数据都是存放在dict的ht[0]中，ht[1]只有在rehash的时候使用。dict进行**rehash**操作的时候，将ht[0]中的素有数据rehash到ht[1]中。然后将ht[1]赋值给ht[0]，并情况ht[1].
+
+#### 编码转换
+> 内层的哈希只有在同时满足以下2个条件时，才会使用压缩列表
+
+- 哈希中的元素数量**小于**<span style="color:red;">512</span>个
+- 哈希中所有键值对的**键和值**字符串长度都**小于**<span style="color:red;">64</span>字节 
 
 ### 集合
+> 集合(set)与列表类似，都是用来保存多个字符串，但是集合与列表有两点不同：集合中的元素是无序的，因此不能通过索引来操作元素；集合中的元素不能重复。
+> 一个集合中最多可以存储**2^32-1**个元素；除了支持常规的增删改查，Redis还支持多个集合取**交集、并集、差集**。
+
+> 下面是整数集合结构
+
+```C
+typedef struct intset{
+  uint32_t encoding;
+  uint32_t length;
+  int8_t contents[];
+} intset;
+```
+
+- **encoding**：contents中存储内容的类型，虽然contents(存储集合中的元素)是int8_t类型，但实际上存储的值是int16_t、int32_t或者int64_t,具体的类型由encoding决定
+- **length**：元素个数
+
+#### 编码转换
+> 只有同时满足下面两个条件，集合才会使用整数集合
+
+- 集合中元素数量小于<span style="color:red;">512</span>个
+- 集合中所有元素都是整数值
 
 ### 有序集合
+> 有序集合与集合一样，元素都不能重复；但与集合不同的是，有序集合中的元素是有顺序的。与列表使用索引下标作为排序依据不同，有序集合为每个元素设置一个分数(score)作为排序依据。
+
+#### 内部编码
+> 有序集合的内部编码可以是**压缩列表**(ziplist)或**跳跃表**(skiplist)
+> 跳跃表是一种有序数据结构，通过在每个节点维持多个指向其他节点的指针，从而达到快速访问节点的目的
+
+#### 编码转换
+> 只有同时满足以下2个条件，才会使用压缩列表
+
+- 元素数量小于<span style="color:red;">128</span>个
+- 所有成员长度不足<span style="color:red;">64</span>字节
